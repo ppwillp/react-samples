@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
+<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
+<!--[if IE 8]><html class="preIE9"><![endif]-->
+<!-- [if gte IE 9]><! -->
+<html>
+  <!-- <![endif] -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FriendLy</title>
+    <link
+      rel="shortcut icon"
+      href="favicon.ico"
+      type="image/vnd.microsoft.icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+  </head>
+  <body>
+    <div id="app">No React</div>
+
+    <script type="text/babel">
+      let people = [
+        { name: "BrocolliGuy1", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy2", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy3", happy: false, img: "img.jpg" },
+        { name: "BrocolliGuy4", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy5", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy6", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy7", happy: false, img: "img.jpg" },
+        { name: "BrocolliGuy8", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy9", happy: false, img: "img.jpg" },
+        { name: "BrocolliGuy10", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy11", happy: false, img: "img.jpg" },
+        { name: "BrocolliGuy12", happy: true, img: "img.jpg" },
+        { name: "BrocolliGuy13", happy: false, img: "img.jpg" },
+        { name: "BrocolliGuy14", happy: true, img: "img.jpg" }
+      ];
+
+      //FriendLy
+      function FriendLy(props) {
+        const friendlyStyle = {
+          display: "inline-block",
+          margin: 20,
+          height: 300,
+          width: 200,
+          padding: 0,
+          backgroundColor: "#FFF",
+          WebkitFilter: "drop-shadow(0px 0px 5px #555)",
+          filter: "drop-shadow(0px 0px 5px #555)"
+        };
+        let people = props.people;
+        let peopleItem = people
+          .filter(function(person) {
+            return person.happy;
+          })
+          .map(function(person) {
+            return (
+              <div key={person.id} style={friendlyStyle}>
+                <Avatar img={person.img} />
+                <UserName name={person.name} />
+                <GetConnected />
+              </div>
+            );
+          });
+        return <div>{peopleItem}</div>;
+      }
+      //Avatar
+      function Avatar(props) {
+        const avatarStyle = {
+          marginLeft: 27,
+          marginTop: 20,
+          width: 150,
+          hegiht: 150,
+          borderRadius: "50%"
+        };
+
+        return <img src={props.img} alt="brocolli guy" style={avatarStyle} />;
+      }
+
+      //UserName
+      function UserName(props) {
+        const nameStyle = {
+          fontSize: 24,
+          fontFamily: "Arial, Helvetica, sans-serif",
+          margin: 20,
+          textAlign: "center"
+        };
+
+        return <h1 style={nameStyle}>{props.name}</h1>;
+      }
+      //GetConnected
+      function GetConnected() {
+        const getConnectedStyle = {
+          marginLeft: 15
+        };
+
+        return (
+          <div style={getConnectedStyle}>
+            <Like />
+            <Share />
+            <Add />
+          </div>
+        );
+      }
+
+      const iconStyle = {
+        margin: 20
+      };
+
+      //->Like
+      function Like() {
+        return (
+          <i className="fa fa-thumbs-up" aria-hidden="true" style={iconStyle} />
+        );
+      }
+      //->Share
+      function Share() {
+        return (
+          <i className="fa fa-retweet" aria-hidden="true" style={iconStyle} />
+        );
+      }
+      //->Add
+      function Add() {
+        return (
+          <i className="fa fa-plus" aria-hidden="true" style={iconStyle} />
+        );
+      }
+      ReactDOM.render(
+        <div>
+          <FriendLy people={people} />
+        </div>,
+        document.getElementById("app")
+      );
+    </script>
+  </body>
+</html>

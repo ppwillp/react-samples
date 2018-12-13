@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
+<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
+<!--[if IE 8]><html class="preIE9"><![endif]-->
+<!-- [if gte IE 9]><! -->
+<html>
+  <!-- <![endif] -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lets React</title>
+    <link
+      rel="shortcut icon"
+      href="favicon.ico"
+      type="image/vnd.microsoft.icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      const dinners = [
+        { id: 0, img: "roasted-chicken-1.jpg" },
+        { id: 0, img: "featured-smoked-ribs.jpg" },
+        { id: 0, img: "classic-roast-turkey.jpg" }
+      ];
+
+      class DinnerVote extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        render() {
+          const dinnerStyle = {
+            width: 300,
+            height: 450,
+            display: "inline-block",
+            backgroundColor: "#FFF",
+            WebkitFilter: "drop-shadow(0px 0px 5px #555)",
+            filter: "drop-shadow(0px 0px 5px #555)",
+            textAlign: "center",
+            padding: 0,
+            margin: 20
+          };
+
+          let dinners = this.props.dinners;
+          let cardViewer = dinners.map(function(meal) {
+            return (
+              <div style={dinnerStyle}>
+                <FoodImage img={meal.img} />
+                <h3>Dinner Time</h3>
+                <Voting />
+              </div>
+            );
+          });
+
+          return <div>{cardViewer}</div>;
+        }
+      }
+
+      class FoodImage extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        foodStyle = {
+          width: 175,
+          height: 175,
+          marginLeft: 0,
+          marginTop: 20,
+          borderRadius: "50%"
+        };
+
+        render() {
+          return (
+            <div>
+              <img src={this.props.img} style={this.foodStyle} />
+            </div>
+          );
+        }
+      }
+
+      class Voting extends React.Component {
+        constructor(props) {
+          super();
+          this.state = {
+            count: 0
+          };
+        }
+
+        handleUpvote() {
+          let counter = this.state.count;
+          counter++;
+          this.setState({
+            count: counter
+          });
+        }
+
+        handleDownvote() {
+          let counter = this.state.count;
+          counter--;
+
+          this.setState({
+            count: counter
+          });
+        }
+
+        render() {
+          return (
+            <div>
+              <p>Vote here if you want this:</p>
+              <button onClick={() => this.handleUpvote()}>+1</button>
+              <p>Vote here if you don't want this:</p>
+              <button onClick={() => this.handleDownvote()}>-1</button>
+              <p>{this.state.count}</p>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <div>
+          <DinnerVote dinners={dinners} />
+        </div>,
+        document.getElementById("app")
+      );
+    </script>
+  </body>
+</html>
