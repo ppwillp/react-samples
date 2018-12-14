@@ -31,7 +31,7 @@
       cal call setState
 
       */
-
+      let currentTime = new Date().getTime();
       const BASE_URL = "https://swapi.co/api";
 
       class Request extends React.Component {
@@ -39,19 +39,24 @@
           super(props);
 
           this.state = {
-            items: []
+            items: [],
+            time: currentTime
           };
         }
 
         componentDidMount() {
-          fetch(BASE_URL + "/people")
+          fetch(
+            "https://oma-gtsts-001.paypalcorp.com/AvayaMonitorScreensSvc/api/index.php?METHOD=getOmahaL1AvayaStats&_=" +
+              currentTime
+          )
             .then(response => response.json())
             .then(responseData => {
+              console.log(responseData);
               this.setState({
                 items: responseData.results
               });
             })
-            .catch(err => res.json({ err: err }));
+            .catch(err => console.log(err));
         }
         render() {
           let items = this.state.items;
